@@ -168,5 +168,7 @@ void unit_test_assert_char_equals(struct unit_test *test, char a, char b);
 *   @author Brennan Hurst
 *   @version 10/07/2021
 */
-void unit_test_printf(struct unit_test *test);
+void unit_test_print_summary(struct unit_test *test);
+
+void unit_test_print_header(struct unit_test *test);
 #endif
