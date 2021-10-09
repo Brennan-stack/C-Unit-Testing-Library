@@ -88,11 +88,13 @@ void unit_test_start(struct unit_test *test, void (*start)(), void (*print)());
 *   @param *test - the unit_test you wish to use to track the results. 
 *   @param *a - the first pointer you are comparing
 *   @param *b - the second pointer you are comparing
+*   @param *fname - file name. Use the macro __FILE_ for this field.
+*   @param lineno - line number. Use the macro __LINE__ for this field.
 *
 *   @author Brennan Hurst
 *   @version 10/07/2021
 */
-void unit_test_assert_same_address(struct unit_test *test, void *a, void *b);
+void unit_test_assert_same_address(struct unit_test *test, const char *fname, int lineno, void *a, void *b);
 
 /*
 *   This function takes two floats and determines if they both contain the same
@@ -101,12 +103,13 @@ void unit_test_assert_same_address(struct unit_test *test, void *a, void *b);
 *   @param *test - the unit_test you wish to use to track the results. 
 *   @param a - the first float you are comparing
 *   @param b - the second float you are comparing
+*   @param *fname - file name. Use the macro __FILE_ for this field.
+*   @param lineno - line number. Use the macro __LINE__ for this field.
 *
 *   @author Brennan Hurst
 *   @version 10/07/2021
 */
-void unit_test_assert_float_equals(struct unit_test *test, float a, float b);
-
+void unit_test_assert_float_equals(struct unit_test *test, const char *fname, int lineno, float a, float b);
 /*
 *   This function takes two integers and determines if they both contain the same
 *   value.
@@ -114,11 +117,13 @@ void unit_test_assert_float_equals(struct unit_test *test, float a, float b);
 *   @param *test - the unit_test you wish to use to track the results. 
 *   @param a - the first integers you are comparing
 *   @param b - the second integers you are comparing
+*   @param *fname - file name. Use the macro __FILE_ for this field.
+*   @param lineno - line number. Use the macro __LINE__ for this field.
 *
 *   @author Brennan Hurst
 *   @version 10/07/2021
 */
-void unit_test_assert_int_equals(struct unit_test *test, int a, int b);
+void unit_test_assert_int_equals(struct unit_test *test, const char *fname, int lineno, int a, int b);
 
 /*
 *   This function takes two doubles and determines if they both contain the same
@@ -127,11 +132,13 @@ void unit_test_assert_int_equals(struct unit_test *test, int a, int b);
 *   @param *test - the unit_test you wish to use to track the results. 
 *   @param a - the first doubles you are comparing
 *   @param b - the second doubles you are comparing
+*   @param *fname - file name. Use the macro __FILE_ for this field.
+*   @param lineno - line number. Use the macro __LINE__ for this field.
 *
 *   @author Brennan Hurst
 *   @version 10/07/2021
 */
-void unit_test_assert_double_equals(struct unit_test *test, double a, double b);
+void unit_test_assert_double_equals(struct unit_test *test, const char *fname, int lineno, double a, double b);
 
 /*
 *   This function takes two longs and determines if they both contain the same
@@ -140,11 +147,13 @@ void unit_test_assert_double_equals(struct unit_test *test, double a, double b);
 *   @param *test - the unit_test you wish to use to track the results. 
 *   @param a - the first long you are comparing
 *   @param b - the second long you are comparing
+*   @param *fname - file name. Use the macro __FILE_ for this field.
+*   @param lineno - line number. Use the macro __LINE__ for this field.
 *
 *   @author Brennan Hurst
 *   @version 10/07/2021
 */
-void unit_test_assert_long_equals(struct unit_test *test, long a, long b);
+void unit_test_assert_long_equals(struct unit_test *test, const char *fname, int lineno, long a, long b);
 
 /*
 *   This function takes two chars and determines if they both contain the same
@@ -153,11 +162,13 @@ void unit_test_assert_long_equals(struct unit_test *test, long a, long b);
 *   @param *test - the unit_test you wish to use to track the results. 
 *   @param a - the first char you are comparing
 *   @param b - the second char you are comparing
+*   @param *fname - file name. Use the macro __FILE_ for this field.
+*   @param lineno - line number. Use the macro __LINE__ for this field.
 *
 *   @author Brennan Hurst
 *   @version 10/07/2021
 */
-void unit_test_assert_char_equals(struct unit_test *test, char a, char b);
+void unit_test_assert_char_equals(struct unit_test *test, const char *fname, int lineno, char a, char b);
 
 /*
 *   This function takes a unit_test struct and prints out the results to 
@@ -170,5 +181,101 @@ void unit_test_assert_char_equals(struct unit_test *test, char a, char b);
 */
 void unit_test_print_summary(struct unit_test *test);
 
+/*
+*   This function prints the header for the unit test section. It is used as 
+*   a helper function and may be useful for inline printing. 
+*
+*   @param *test - the unit_test you wish to print out.
+*
+*   @author Brennan Hurst
+*   @version 10/09/2021
+*/
 void unit_test_print_header(struct unit_test *test);
+
+/*
+*   This function takes two floats and determines if they both contain the same
+*   value.
+*
+*   @param *test - the unit_test you wish to use to track the results. 
+*   @param a - the first float array are comparing
+*   @param b - the second float array are comparing
+*   @param *fname - file name. Use the macro __FILE_ for this field.
+*   @param lineno - line number. Use the macro __LINE__ for this field.
+*   @param asize - size of array a.
+*   @param bsize - size of array b.
+*   @param asize - the size of array a.
+*   @param bsize - the size of array b.
+*
+*   @author Brennan Hurst
+*   @version 10/09/2021
+*/
+void unit_test_assert_float_array_equals(struct unit_test *test, const char *fname, int lineno, float *a, int asize, float *b, int bsize);
+
+/*
+*   This function takes two integers and determines if they both contain the same
+*   value.
+*
+*   @param *test - the unit_test you wish to use to track the results. 
+*   @param a - the first integer array you are comparing
+*   @param b - the second integer array you are comparing
+*   @param *fname - file name. Use the macro __FILE_ for this field.
+*   @param lineno - line number. Use the macro __LINE__ for this field.
+*   @param asize - the size of array a.
+*   @param bsize - the size of array b.
+*
+*   @author Brennan Hurst
+*   @version 10/09/2021
+*/
+void unit_test_assert_int_array_equals(struct unit_test *test, const char *fname, int lineno, int *a, int asize, int *b, int bsize);
+
+/*
+*   This function takes two doubles and determines if they both contain the same
+*   value.
+*
+*   @param *test - the unit_test you wish to use to track the results. 
+*   @param a - the first double array you are comparing
+*   @param b - the second double array you are comparing
+*   @param *fname - file name. Use the macro __FILE_ for this field.
+*   @param lineno - line number. Use the macro __LINE__ for this field.
+*   @param asize - the size of array a.
+*   @param bsize - the size of array b.
+*
+*   @author Brennan Hurst
+*   @version 10/09/2021
+*/
+void unit_test_assert_double_array_equals(struct unit_test *test, const char *fname, int lineno, double *a, int asize, double *b, int bsize);
+
+/*
+*   This function takes two longs and determines if they both contain the same
+*   value.
+*
+*   @param *test - the unit_test you wish to use to track the results. 
+*   @param a - the first long array you are comparing
+*   @param b - the second long array you are comparing
+*   @param *fname - file name. Use the macro __FILE_ for this field.
+*   @param lineno - line number. Use the macro __LINE__ for this field.
+*   @param asize - the size of array a.
+*   @param bsize - the size of array b.
+*
+*   @author Brennan Hurst
+*   @version 10/09/2021
+*/
+void unit_test_assert_long_array_equals(struct unit_test *test, const char *fname, int lineno, long *a, int asize, long *b, int bsize);
+
+/*
+*   This function takes two chars and determines if they both contain the same
+*   value.
+*
+*   @param *test - the unit_test you wish to use to track the results. 
+*   @param a - the first char array you are comparing
+*   @param b - the second char array you are comparing
+*   @param *fname - file name. Use the macro __FILE_ for this field.
+*   @param lineno - line number. Use the macro __LINE__ for this field.
+*   @param asize - the size of array a.
+*   @param bsize - the size of array b.
+*
+*   @author Brennan Hurst
+*   @version 10/09/2021
+*/
+void unit_test_assert_char_array_equals(struct unit_test *test, const char *fname, int lineno, char *a, int asize, char *b, int bsize);
 #endif
