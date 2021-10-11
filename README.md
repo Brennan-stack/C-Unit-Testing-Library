@@ -103,11 +103,13 @@ int main()
 ```   
    
 The above code does a few things in the main method. First, it creates a new unit_test which holds unit test information. It then starts the unit_test by calling unit_test_start(struct unit_test *test, void (*start)(), void (*print)()) which effectively handles the execution of the unit test pointed to by the function pointer *start and handles the print out of all assertions. The main then calls unit_test_print_total_summary() to print out an overall summary which shows results as a whole. 
-
+***
 ### Development   
+***
 Development is currently being done by Brennan Hurst. This repository was initially created for the purpose of his personal use. Any contributions and/or suggestions related to this repository are more than welcome. 
-
+***
 ### License   
+***
 This repository follows under the guidelines of the MIT License, as shown below:
 
 >MIT License
