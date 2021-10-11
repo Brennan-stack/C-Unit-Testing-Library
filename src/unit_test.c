@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <assert.h>
 
+struct unit_test **tests;
+int test_count = 0;
 /*
 *   This function initializes a new unit test with a given name.
 *   
@@ -14,11 +16,56 @@
 *   @version 10/07/2021
 */
 struct unit_test* unit_test_init(char* name) {
+
+    tests = realloc(tests, (test_count + 1) * sizeof(struct unit_test*));
     struct unit_test *u_test = calloc(1, sizeof(struct unit_test));
+    //printf("%d\n", sizeof(tests));
     u_test->name = name;
     u_test->num_passed = 0;
     u_test->num_failed = 0;
+    tests[test_count] = u_test;
+    test_count++;
     return u_test;
+}
+
+/*
+*   This function prints a total summary of all unit test which have executed.
+*   It also reports to the user whether the program is passing as a whole, and 
+*   must be called by the user.
+*
+*   @author Brennan Hurst
+*   @version 10/10/2021
+*/
+void unit_test_print_total_summary() {
+    
+    printf("\033[1;37m================== Total Summary ==================\033[0m\n");
+    printf("\033[4mTest Name|                                   |Score\033[0m\n");
+    int total_passing = 0;
+    int total_failing = 0;
+    for (int i = 0; i < test_count; i++)
+    {
+        int size = 0;
+        for(; tests[i]->name[size] != '\0'; size++);
+        printf("%s: %*d/%d\n", tests[i]->name, 47 - size, tests[i]->num_passed,
+            tests[i]->num_failed + tests[i]->num_passed);
+        total_passing += tests[i]->num_passed;
+        total_failing += tests[i]->num_failed;
+    }
+    printf("---------------------------------------------------\n");
+    printf("# of Assertions Passing: \033[1;32m%*d\033[0m\n", 26, total_passing);
+    printf("# of Assertions Failing: \033[1;31m%*d\033[0m\n", 26, total_failing);
+    printf("Overall Status: ");
+
+    if (total_failing == 0)
+    {
+        printf("\033[1;32m%*s\033[0m\n", 35, "PASSING");
+    }
+    else
+    {
+        printf("\033[1;31m%*s\033[0m\n", 28, "FAILING");
+    }
+    printf("===================================================\n");
+
 }
 
 /*
@@ -49,7 +96,7 @@ void unit_test_start(struct unit_test *test, void (*start)(), void (*print)()) {
     {
         print(test);
     }
-    free(test);
+    //free(test);
 }
 
 /*
@@ -358,7 +405,7 @@ void unit_test_assert_float_array_equals(struct unit_test *test, const char *fna
     assert(fname != NULL);
 
     printf("%d - \033[1;37m%s: \033[1;36mAssert Float Array Equals\033[0m:", 
-             test->num_passed + test->num_failed, test->name, a, b);
+             test->num_passed + test->num_failed, test->name);
     if (asize == bsize) {
         int i = 0;
         for (; i < asize/sizeof(a[0]); i++)
@@ -478,7 +525,7 @@ void unit_test_assert_int_array_equals(struct unit_test *test, const char *fname
     assert(fname != NULL);
 
     printf("%d - \033[1;37m%s: \033[1;36mAssert Integer Array Equals\033[0m:", 
-             test->num_passed + test->num_failed, test->name, a, b);
+             test->num_passed + test->num_failed, test->name);
     if (asize == bsize) {
         int i = 0;
         for (; i < asize/sizeof(a[0]); i++)
@@ -599,7 +646,7 @@ void unit_test_assert_double_array_equals(struct unit_test *test, const char *fn
     assert(fname != NULL);
 
     printf("%d - \033[1;37m%s: \033[1;36mAssert Double Array Equals\033[0m:", 
-             test->num_passed + test->num_failed, test->name, a, b);
+             test->num_passed + test->num_failed, test->name);
     if (asize == bsize) {
         int i = 0;
         for (; i < asize/sizeof(a[0]); i++)
@@ -720,7 +767,7 @@ void unit_test_assert_long_array_equals(struct unit_test *test, const char *fnam
     assert(fname != NULL);
 
     printf("%d - \033[1;37m%s: \033[1;36mAssert Long Array Equals\033[0m:", 
-             test->num_passed + test->num_failed, test->name, a, b);
+             test->num_passed + test->num_failed, test->name);
     if (asize == bsize) {
         int i = 0;
         for (; i < asize/sizeof(a[0]); i++)
@@ -841,7 +888,7 @@ void unit_test_assert_char_array_equals(struct unit_test *test, const char *fnam
     assert(fname != NULL);
 
     printf("%d - \033[1;37m%s: \033[1;36mAssert Char Array Equals\033[0m:", 
-             test->num_passed + test->num_failed, test->name, a, b);
+             test->num_passed + test->num_failed, test->name);
     if (asize == bsize) {
         int i = 0;
         for (; i < asize/sizeof(a[0]); i++)

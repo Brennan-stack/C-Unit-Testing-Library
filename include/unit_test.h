@@ -52,6 +52,8 @@ struct unit_test {
     int num_failed;
 };
 
+extern struct unit_test **tests;
+extern int test_count;
 /*
 *   This function initializes a new unit test with a given name.
 *   
@@ -180,6 +182,16 @@ void unit_test_assert_char_equals(struct unit_test *test, const char *fname, int
 *   @version 10/07/2021
 */
 void unit_test_print_summary(struct unit_test *test);
+
+/*
+*   This function prints a total summary of all unit test which have executed.
+*   It also reports to the user whether the program is passing as a whole, and 
+*   must be called by the user.
+*
+*   @author Brennan Hurst
+*   @version 10/10/2021
+*/
+void unit_test_print_total_summary();
 
 /*
 *   This function prints the header for the unit test section. It is used as 

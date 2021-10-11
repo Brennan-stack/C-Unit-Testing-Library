@@ -3,7 +3,6 @@
 void test_unit_test_start(struct unit_test *test)
 {
     int a = 0;
-    int b = 2;
     //test to see if addresses are equal
     unit_test_assert_same_address(test, __FILE__, __LINE__, &a, &a);
     unit_test_assert_int_equals(test, __FILE__, __LINE__, 1, 1);
@@ -60,6 +59,7 @@ int main()
     struct unit_test *arraytest = unit_test_init("Test Unit Test Arrays");
     unit_test_start(arraytest, &test_unit_test_arrays, NULL);
     
+    unit_test_print_total_summary();
 
 }
 
